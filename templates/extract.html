@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>extracting {{id}}... and then redirect to product page if the id is valid else redirect to extract with an error</h1>
+    <h1>{{product.name}}, {{product.photo_link}}, {{product.num_of_opinions}}</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>AUTHOR</th>
+            <th>RECOMMENDED</th>
+            <th>SCORE</th>
+            <th>VERIFIED</th>
+            <th>REVIEW_DATE</th>
+            <th>BUY_DATE</th>
+            <th>LIKES</th>
+            <th>DISLIKES</th>
+            <th>CONTENT</th>
+            <th>PLUSES</th>
+            <th>MINUSES</th>
+        </tr>
+        {% for opinion in opinions: %}
+            <tr>
+                <td>{{opinion.id}}</td>
+                <td>{{opinion.author}}</td>
+                <td>{{opinion.recommended}}</td>
+                <td>{{opinion.score}}</td>
+                <td>{{opinion.verified}}</td>
+                <td>{{opinion.review_date}}</td>
+                <td>{{opinion.buy_date}}</td>
+                <td>{{opinion.likes}}</td>
+                <td>{{opinion.dislikes}}</td>
+                <td style="max-width: 200px;">{{opinion.content}}</td>
+                <td>
+                    {% for plus in opinion.plus: %}
+                        {{plus}},
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for minus in opinion.minus: %}
+                        {{minus}},
+                    {% endfor %}
+                </td>
+            </tr>            
+        {% endfor %}
+    </table>
+</body>
+</html>
