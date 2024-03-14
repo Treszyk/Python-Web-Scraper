@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+    <h1>xd</h1>
+    {% if not products %}
+        <h1>Pobierz najpierw jakies produkty</h1>
+    {% else %}
+        {% for product in products %}
+            <div class="product">
+                <h1>{{product.name}} {{product.num_of_pros}} {{product.num_of_cons}} {{product.avg_rating}}</h1>
+                <a href="{{ url_for('download', id=product.id, f_type='json') }}"><button>JSON</button></a>
+                <a href="{{ url_for('download', id=product.id, f_type='csv') }}"><button>CSV</button></a>
+                <a href="{{ url_for('download', id=product.id, f_type='xlsx') }}"><button>XLSX</button></a>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
