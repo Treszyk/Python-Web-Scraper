@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>extracting {{id}}... and then redirect to product page if the id is valid else redirect to extract with an error</h1>
+    {% if error != '' %}
+        <h1>{{error}}</h1>
+    {% endif %}
+    <form method="get" action="{{url_for('extract')}}">
+        <input type="text" name="id" id="id"/>
+        <input type="hidden" name="form_submitted" id="form_submitted" value="true">
+        <input type="submit">Submit</input>
+    </form>
+</body>
+</html>
