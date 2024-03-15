@@ -4,13 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
+    {% block scripts %}
+    {% endblock%}
+    <style>
+        .dataTables_wrapper {
+            width: 1000px;
+            height: 300px;
+            text-align: center;
+        }
+        th.dt-center, td.dt-center { text-align: center; }
+        td.dt-type-numeric.dt-center { text-align: center; }
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+        div#product_data_wrapper {
+            width:1400px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <h1>BASE TEMPLATE</h1>
-    <a href="{{ url_for('home') }}">home</a>
-    <a href="{{ url_for('extract') }}">extract</a>
-    <a href="{{ url_for('product_list') }}">products</a>
-    <a href="#">about</a>
+    <a href="{{ url_for('home') }}" class="nav__link {{ 'nav__link--active' if request.path == url_for('home') }}">home</a>
+    <a href="{{ url_for('extract') }}" class="nav__link {{ 'nav__link--active' if request.path == url_for('extract') }}">extract</a>
+    <a href="{{ url_for('product_list') }}" class="nav__link {{ 'nav__link--active' if request.path == url_for('product_list') }}">products</a>
+    <a href="#" class="nav__link {{ 'nav__link--active' if request.path == url_for('about') }}">about</a>
     {% block content %}
     {% endblock %}
 </body>
