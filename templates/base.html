@@ -30,7 +30,7 @@
     <a href="{{ url_for('home') }}" class="nav__link {{ 'nav__link--active' if request.path == url_for('home') }}">home</a>
     <a href="{{ url_for('extract') }}" class="nav__link {{ 'nav__link--active' if request.path == url_for('extract') }}">extract</a>
     <a href="{{ url_for('product_list') }}" class="nav__link {{ 'nav__link--active' if request.path == url_for('product_list') }}">products</a>
-    <a href="#" class="nav__link {{ 'nav__link--active' if request.path == url_for('about') }}">about</a>
+    <a href="#" class="nav__link {{ 'nav__link--active' if request.path == url_for('home') }}">about</a>
     {% block content %}
     {% endblock %}
 </body>
