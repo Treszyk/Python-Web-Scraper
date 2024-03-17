@@ -7,10 +7,6 @@ class Product:
         self.photo_link = photo_link
         self.num_of_opinions = num_of_opinions
     
-    def update_product_data(self):
-        #num_of_pluses:int, num_of_minuses:int, avg_rating:int
-        pass
-
     def update_opinions(self, opinions:list[Opinion]):
         self.opinions = opinions
         cons_pros = get_cons_pros(self)

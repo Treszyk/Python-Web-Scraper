@@ -2,6 +2,7 @@ import jsonpickle
 import io
 import csv
 import openpyxl
+
 def convert_to_JSON(opinions:list):
     return jsonpickle.encode(opinions, unpicklable=False)
 
@@ -22,7 +23,7 @@ def convert_to_XLSX(opinions:list):
     output = io.BytesIO()
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    
+
     sheet.append(["id", "author", "recommended", "score", "verified", "review_date", "buy_date", "likes", "dislikes", "content", "plus", "minus"])
     for opinion in opinions:
         sheet.append(opinion.serialize()) 

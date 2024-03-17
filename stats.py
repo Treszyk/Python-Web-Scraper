@@ -12,4 +12,4 @@ def get_avg_rating(product) -> float:
     suma = 0
     for opinion in opinions:
         suma += opinion.score
-    return suma/len(opinions)
+    return round(suma/len(opinions), 1)

@@ -23,7 +23,7 @@ def extract(id='', error=''):
     print(id)
     if id == '':
         if submitted:
-            error = 'Prosze wpisac poprawny kod!'
+            error = 'Prosze wpisac kod produktu'
         return render_template('extract.html', error = error)
     elif id in products.keys():
         return redirect(url_for('product_page', id=id))
