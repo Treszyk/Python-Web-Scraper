@@ -30,6 +30,7 @@ class Scraper:
         product_info['num_reviews'] = number_of_reviews
 
         for i in range(2, math.ceil(number_of_reviews/10)+1):
+            print(f'page [{i}]')
             re = requests.get(f'https://www.ceneo.pl/{id}/opinie-{i}')
             soup = BeautifulSoup(re.text, 'html')
             for review in soup.find_all('div', class_='user-post user-post__card js_product-review'):
@@ -63,7 +64,7 @@ class Scraper:
         plus_minus = opinion.find_all('div', class_='review-feature__col')
 
         for div in plus_minus:
-            print(div.find('div', class_='review-feature__title'))
+            #print(div.find('div', class_='review-feature__title'))
             if div.find('div', class_='review-feature__title').text == 'Zalety':
                 for val in div.find_all('div', class_='review-feature__item'):
                     plus.append(val.text)

@@ -102,7 +102,7 @@ def charts(id=''):
         return redirect(url_for('extract', error='Prosze najpierw pobrac opinie tego produktu'))
     else:
         recommendations = {'polecam': 0, 'nie polecam': 0}
-        scores = {'1.0': 0, '1.5': 0, '2.0': 0, '2.5': 0, '3.0': 0, '3.5': 0, '4.0': 0, '4.5': 0, '5.0': 0}
+        scores = {'0.5': 0,'1.0': 0, '1.5': 0, '2.0': 0, '2.5': 0, '3.0': 0, '3.5': 0, '4.0': 0, '4.5': 0, '5.0': 0}
         for opinion in products[id].opinions:
             if opinion.recommended:
                 recommendations['polecam'] += 1
