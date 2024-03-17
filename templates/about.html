@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Extract{% endblock %}
+{% block content %}
+    <div class="desc">
+        <div class="small_section_wrapper desc_item">
+            <h1 class="title">IMIE I NAZWISKO</h1>
+            <div class="about_me">
+                <h2 class="h2-about">Nazywam się <span class="highlighted">Patryk Sowiński</span></h2>
+            </div>
+        </div>
+        <div class="small_section_wrapper desc_item">
+            <h1 class="title">GDZIE STUDIUJE</h1>
+            <div class="about_me">
+                <h2 class="h2-about">Studiuje na <span class="highlighted">Uniwersytecie Ekonomicznym w Krakowie</span></h2>
+            </div>
+        </div>
+    </div>
+    <div class="desc">
+        <div class="small_section_wrapper desc_item">
+            <h1 class="title">MOJE ZAINTERESOWANIA</h1>
+            <div class="about_me">
+                <h2 class="h2-about">Moje zainteresowania to głownie <span class="highlighted">programowanie</span> i <span class="highlighted">gry komputerowe</span></h2>
+            </div>
+        </div>
+        <div class="small_section_wrapper desc_item">
+            <h1 class="title">W CZYM PROGRAMUJE</h1>
+            <div class="languages_wrapper">
+                <div class="misc_data_item">
+                    <img src="{{url_for('static', filename='images/python.png')}}" alt="python-logo">
+                    <h6>python</h6>
+                </div>
+                <div class="misc_data_item">
+                    <img src="{{url_for('static', filename='images/js.png')}}" alt="js-logo">
+                    <h6>javascript</h6>
+                </div>
+                <div class="misc_data_item">
+                    <img src="{{url_for('static', filename='images/cpp.png')}}" alt="cpp-logo">
+                    <h6>c++</h6>
+                </div>
+                <div class="misc_data_item">
+                    <img src="{{url_for('static', filename='images/java.png')}}" alt="java-logo">
+                    <h6>java</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="https://github.com/Treszyk"><img id="github-logo" src="{{url_for('static', filename='images/github.png')}}" alt="github-logo">   </a>
+    
+{% endblock %}
