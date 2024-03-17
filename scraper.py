@@ -53,7 +53,9 @@ class Scraper:
         id = opinion['data-entry-id']
         author = opinion.find('span', class_='user-post__author-name').text
         recommend_div = opinion.find('span', class_='user-post__author-recomendation')
-        recommended = True if recommend_div.find('em').text == 'Polecam' else False
+        recommended = ''
+        if recommend_div:
+            recommended = True if recommend_div.find('em').text == 'Polecam' else False
         score = float(opinion.find('span', class_='user-post__score-count').text.replace(',', '.').split('/')[0])
         verified = True if opinion.find('div', 'review-pz') else False
         dates = opinion.find('span', class_='user-post__published').find_all('time')
@@ -72,7 +74,6 @@ class Scraper:
             if div.find('div', class_='review-feature__title').text == 'Zalety':
                 for val in div.find_all('div', class_='review-feature__item'):
                     plus.append(val.text)
-                    
             else:
                 for val in div.find_all('div', class_='review-feature__item'):
                     minus.append(val.text)

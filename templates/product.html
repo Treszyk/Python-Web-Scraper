@@ -3,71 +3,92 @@
 {% block scripts %}
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
 <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js" defer></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 {% endblock %}
 {% block content %}
-    <h1>extracting {{id}}... and then redirect to product page if the id is valid else redirect to extract with an error</h1>
-    <h1>{{product.name}}, {{product.photo_link}}, {{product.num_of_opinions}}</h1>
-    <table id="product_data">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>AUTHOR</th>
-                <th>RECOMMENDED</th>
-                <th>SCORE</th>
-                <th>VERIFIED</th>
-                <th>REVIEW_DATE</th>
-                <th>BUY_DATE</th>
-                <th>LIKES</th>
-                <th>DISLIKES</th>
-                <th>CONTENT</th>
-                <th>PLUSES</th>
-                <th>MINUSES</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for opinion in opinions: %}
-            <tr>
-                <td>{{opinion.id}}</td>
-                <td>{{opinion.author}}</td>
-                <td>{{opinion.recommended}}</td>
-                <td>{{opinion.score}}</td>
-                <td>{{opinion.verified}}</td>
-                <td>{{opinion.review_date}}</td>
-                <td>{{opinion.buy_date}}</td>
-                <td>{{opinion.likes}}</td>
-                <td>{{opinion.dislikes}}</td>
-                <td style="min-width: 500px;">{{opinion.content}}</td>
-                <td>
-                    {% for plus in opinion.plus: %}
-                        {{plus}},
-                    {% endfor %}
-                </td>
-                <td>
-                    {% for minus in opinion.minus: %}
-                        {{minus}},
-                    {% endfor %}
-                </td>
-            </tr>            
-        {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>ID</th>
-                <th>AUTHOR</th>
-                <th>RECOMMENDED</th>
-                <th>SCORE</th>
-                <th>VERIFIED</th>
-                <th>REVIEW_DATE</th>
-                <th>BUY_DATE</th>
-                <th>LIKES</th>
-                <th>DISLIKES</th>
-                <th>CONTENT</th>
-                <th>PLUSES</th>
-                <th>MINUSES</th>
-            </tr>
-        </tfoot>
-    </table>
+    <div class="desc_item">
+        <div class="product_info_wrapper">
+            <div class="simple_wrapper">
+                <div class="product_info">
+                    <img src="{{product.photo_link}}" alt="photo">
+                    <div class="base_product_info">
+                        <h1>ID: <span>{{product.id}}</span></h1>
+                        <h1>Nazwa: <span>{{product.name}}</span></h1>
+                        <h1>Liczba opinii: <span>{{product.num_of_opinions}}</span></h1>
+                    </div>
+                </div>
+                <div class="product_buttons">
+                    <a href="{{ url_for('download', id=product.id, f_type='json') }}" class="btn btn-primary mb-3">JSON</a>
+                    <a href="{{ url_for('download', id=product.id, f_type='csv') }}" class="btn btn-primary mb-3">CSV</a>
+                    <a href="{{ url_for('download', id=product.id, f_type='xlsx') }}" class="btn btn-primary mb-3">XLSX</a>
+                    <a href="{{ url_for('charts', id=product.id) }}" class="btn btn-primary mb-3">WYKRESY</a>
+                </div>
+            </div>
+            
+        </div>
+        <div class="table_wrapper">
+            <table id="product_data" class="table table-striped" data-bs-theme="dark">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>AUTHOR</th>
+                        <th>RECOMMENDED</th>
+                        <th>SCORE</th>
+                        <th>VERIFIED</th>
+                        <th>REVIEW_DATE</th>
+                        <th>BUY_DATE</th>
+                        <th>LIKES</th>
+                        <th>DISLIKES</th>
+                        <th>CONTENT</th>
+                        <th>PLUSES</th>
+                        <th>MINUSES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for opinion in opinions: %}
+                    <tr>
+                        <td>{{opinion.id}}</td>
+                        <td>{{opinion.author}}</td>
+                        <td>{{opinion.recommended}}</td>
+                        <td>{{opinion.score}}</td>
+                        <td>{{opinion.verified}}</td>
+                        <td>{{opinion.review_date}}</td>
+                        <td>{{opinion.buy_date}}</td>
+                        <td>{{opinion.likes}}</td>
+                        <td>{{opinion.dislikes}}</td>
+                        <td style="min-width: 800px;">{{opinion.content}}</td>
+                        <td style="min-width: 500px;">
+                            {% for plus in opinion.plus: %}
+                                {{plus.strip()}},
+                            {% endfor %}
+                        </td>
+                        <td style="min-width: 500px;">
+                            {% for minus in opinion.minus: %}
+                                {{minus}},
+                            {% endfor %}
+                        </td>
+                    </tr>            
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>AUTHOR</th>
+                        <th>RECOMMENDED</th>
+                        <th>SCORE</th>
+                        <th>VERIFIED</th>
+                        <th>REVIEW_DATE</th>
+                        <th>BUY_DATE</th>
+                        <th>LIKES</th>
+                        <th>DISLIKES</th>
+                        <th>CONTENT</th>
+                        <th>PLUSES</th>
+                        <th>MINUSES</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    
     <script>
         
         $(document).ready( function () {
