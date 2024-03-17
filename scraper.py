@@ -23,7 +23,7 @@ class Scraper:
         reviews_span = reviews_li.find('span')
 
         number_of_reviews = int(reviews_span.text.replace('Opinie i Recenzje (', '').replace(')', ''))
-        number_of_reviews = min(number_of_reviews, 100)
+        #number_of_reviews = min(number_of_reviews, 100)
 
         product_info['name'] = soup.find('h1', class_ = 'product-top__product-info__name js_product-h1-link js_product-force-scroll js_searchInGoogleTooltip default-cursor').text
         product_info['img'] = soup.find('img', class_='js_gallery-media gallery-carousel__media')['src']
