@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}Product{% endblock %}
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+{% endblock %}
+{% block content %}
+
+    <canvas id="recommend_chart" style="width:100%;max-width:700px"></canvas>
+    <canvas id="score_chart" style="width:100%;max-width:700px"></canvas>
+    <script>
+        Chart.defaults.backgroundColor = '#9BD0F5';
+        Chart.defaults.borderColor = '#36A2EB';
+        Chart.defaults.color = '#000';
+        var barColors = [
+            "#b91d47",
+            "#00aba9",
+            "#2b5797",
+            "#e8c3b9",
+            "#1e7145",
+            "#7300ff",
+            "#fbff00",
+            "#00e1ff",
+            "#ff5e00",
+            "#00ff1a",
+        ];
+        const recommend_data = {{ recommendations|tojson }};
+        const score_data = {{ scores|tojson }}
+        console.log(Object.keys(recommend_data), Object.keys(score_data));
+        const recommend_chart = new Chart("recommend_chart", {
+            type: "pie",
+            data: {
+            labels: Object.keys(recommend_data),
+            datasets: [{
+                    backgroundColor: barColors,
+                    data: Object.values(recommend_data),
+                    
+                }]
+            },
+            options: {
+                title: {
+                    fontColor: '#e8e8e8',
+                    fontSize: 30,    
+                    display: true,
+                    text: "Udział poszczególnych rekomendacji rekomendacji"
+                },
+                legend: {
+                    labels:{
+                        fontColor: '#e8e8e8',
+                        fontSize: 30,
+                    },
+                },
+            }
+        });
+        const score_chart = new Chart("score_chart", {
+            type: "bar",
+            data: {
+                labels: Object.keys(score_data),
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: Object.values(score_data),
+                    color: "#00ff1a",
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            fontSize: 30,
+                            fontColor: "#e8e8e8"
+                        },
+                        gridLines: {
+                            display: true ,
+                            color: "red"
+                        },
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: true ,
+                            color: "red"
+                        },
+                        ticks: {
+                            fontSize: 30,
+                            fontColor: "#e8e8e8"
+                        }
+                    }]
+                },
+                legend: {display: false},
+                title: {
+                    fontColor: '#e8e8e8',
+                    fontSize: 30,
+                display: true,
+                text: "Liczba opinii z poszczegolnymi liczbami gwiazdek"
+                }
+            }
+        });
+    </script>
+{% endblock %}

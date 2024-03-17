@@ -69,6 +69,7 @@ def product_list():
     print(len(products))
     return render_template('product_list.html', products=products.values())
 
+#add a safeguard if an id is entered but its not in products
 @app.route('/download/<id>')
 @app.route('/download/')
 def download(id='', f_type=''):
@@ -77,6 +78,8 @@ def download(id='', f_type=''):
     f_type = request.args.get('f_type', '')
     if id == '' or f_type=='':
         return redirect(url_for('product_list'))
+    elif id != '' and id not in products.keys():
+        return redirect(url_for('extract', error='Prosze najpierw pobrac opinie tego produktu'))
     elif f_type == 'json':
         print(jsonpickle.encode(products[id].opinions, unpicklable=False))
         #print(json.dump(products[id]))
@@ -110,7 +113,31 @@ def download(id='', f_type=''):
             headers={"Content-disposition":
                     "attachment; filename=opinions.xlsx"})
 
-        
+@app.route('/charts/<id>')
+@app.route('/download/')
+def charts(id=''):
+    if id == '':
+        return redirect(url_for('product_list'))
+    elif id != '' and id not in products.keys():
+        return redirect(url_for('extract', error='Prosze najpierw pobrac opinie tego produktu'))
+    else:
+        #kołowy podział poszczególnych rekomendacji w ogólnej liczbie opinii [czyli ze polecam nie polecam]
+        #słupkowy lub kolumnowy przedstawiajacy liczbe opinii z poszczegolnymi liczbami gwiazdek
+        recommendations = {'polecam': 0, 'nie polecam': 0}
+        scores = {'1.0': 0, '1.5': 0, '2.0': 0, '2.5': 0, '3.0': 0, '3.5': 0, '4.0': 0, '4.5': 0, '5.0': 0}
+        for opinion in products[id].opinions:
+            if opinion.recommended:
+                recommendations['polecam'] += 1
+            else:
+                recommendations['nie polecam'] += 1
+            
+            score = opinion.score
+            scores[str(score)] += 1
+        print(recommendations, scores)
+
+        return render_template('charts.html', recommendations=recommendations, scores=scores)
+
+
 
 
 if __name__ == '__main__':

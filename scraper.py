@@ -54,7 +54,7 @@ class Scraper:
         author = opinion.find('span', class_='user-post__author-name').text
         recommend_div = opinion.find('span', class_='user-post__author-recomendation')
         recommended = True if recommend_div.find('em').text == 'Polecam' else False
-        score = int(opinion.find('span', class_='user-post__score-count').text[0])
+        score = float(opinion.find('span', class_='user-post__score-count').text.replace(',', '.').split('/')[0])
         verified = True if opinion.find('div', 'review-pz') else False
         dates = opinion.find('span', class_='user-post__published').find_all('time')
         #print(dates,'daty amogus')
