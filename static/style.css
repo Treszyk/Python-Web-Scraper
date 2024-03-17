@@ -379,3 +379,13 @@ h1.alert {
     margin-top: 25px;
     width: fit-content;
 }
+#github_data_wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap:5px;
+}
+#github_data_wrapper img {
+    max-height: 200px;
+    min-height: 200px;
+}
