@@ -1,13 +1,26 @@
 {% extends 'base.html' %}
 {% block title %}Extract{% endblock %}
 {% block content %}
-    <h1>extracting {{id}}... and then redirect to product page if the id is valid else redirect to extract with an error</h1>
-    {% if error != '' %}
-        <h1>{{error}}</h1>
-    {% endif %}
-    <form method="get" action="{{url_for('extract')}}">
-        <input type="text" name="id" id="id" placeholder="154673397" value="154673397"/>
-        <input type="hidden" name="form_submitted" id="form_submitted" value="true">
-        <input type="submit">Submit</input>
-    </form>
+    <div class="extraction">
+        <form id="product_form" method="get" action="{{url_for('extract')}}" class="form-control form-control-lg desc_item" data-bs-theme="dark">
+            <label for="id" class="form-label">Kod produktu</label>
+            <input type="text" name="id" id="id" placeholder="154673397" class="form-control"/>
+            <input type="hidden" name="form_submitted" id="form_submitted" value="true">
+            <button type="submit" class="btn btn-primary mb-3"><span id="spinner" class="spinner-border spinner-border" role="status" ></span>POBIERZ OPINIE</button>
+        </form>
+        {% if error != '' %}
+            <div class="alert alert-danger" role="alert">
+                <span>{{error}}</span>
+            </div>
+        {% endif %}
+
+
+    </div>
+    <script>
+        $('#spinner').toggle();
+        $('#product_form').submit(function() {
+            if($('#spinner').is(":hidden"))
+                $('#spinner').toggle()
+        });
+    </script>
 {% endblock %}

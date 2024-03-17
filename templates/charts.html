@@ -4,13 +4,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 {% endblock %}
 {% block content %}
-
-    <canvas id="recommend_chart" style="width:100%;max-width:700px"></canvas>
-    <canvas id="score_chart" style="width:100%;max-width:700px"></canvas>
+    <div class="charts_wrapper">
+        <div class="charts">
+            <canvas id="recommend_chart" style="width:100%;max-width:700px"></canvas>
+            <canvas id="score_chart" style="width:100%;max-width:700px"></canvas>
+        </div>
+        <a href="{{ url_for('product_page', id=id)}}" class="btn btn-primary">POWRÓT</a> 
+    </div>
     <script>
-        Chart.defaults.backgroundColor = '#9BD0F5';
-        Chart.defaults.borderColor = '#36A2EB';
-        Chart.defaults.color = '#000';
         var barColors = [
             "#b91d47",
             "#00aba9",
@@ -46,11 +47,12 @@
                 legend: {
                     labels:{
                         fontColor: '#e8e8e8',
-                        fontSize: 30,
+                        fontSize: 15,
                     },
                 },
             }
         });
+
         const score_chart = new Chart("score_chart", {
             type: "bar",
             data: {
@@ -65,23 +67,23 @@
                 scales: {
                     xAxes: [{
                         ticks: {
-                            fontSize: 30,
+                            fontSize: 15,
                             fontColor: "#e8e8e8"
                         },
                         gridLines: {
                             display: true ,
-                            color: "red"
+                            color: "#cfcfcfc9",
                         },
                     }],
                     yAxes: [{
+                        ticks: {
+                            fontSize: 15,
+                            fontColor: "#e8e8e8"
+                        },
                         gridLines: {
                             display: true ,
-                            color: "red"
+                            color:  "#cfcfcfc9",
                         },
-                        ticks: {
-                            fontSize: 30,
-                            fontColor: "#e8e8e8"
-                        }
                     }]
                 },
                 legend: {display: false},

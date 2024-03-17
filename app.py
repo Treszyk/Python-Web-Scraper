@@ -58,7 +58,7 @@ def extract(id='', error=''):
 @app.route('/product/')
 def product_page(id = ''):
     if id == '':
-        return redirect(url_for('extract'))
+        return redirect(url_for('extract', error='Prosze najpierw pobrac opinie tego produktu'))
     elif id != '' and id not in products.keys():
         return redirect(url_for('extract', error='Prosze najpierw pobrac opinie tego produktu'))#'<h1>Prosze najpierw pobrac opinie tego produktu</h1>'
     else:
@@ -85,7 +85,7 @@ def download(id='', f_type=''):
         #print(json.dump(products[id]))
         return Response(jsonpickle.encode(products[id].opinions, unpicklable=False), 
             mimetype='application/json',
-            headers={'Content-Disposition':'attachment;filename=opinions.json'})
+            headers={'Content-Disposition':f'attachment;filename=opinions-{id}.json'})
     elif f_type == 'csv':
         output = io.StringIO()
         writer = csv.writer(output)
@@ -97,7 +97,7 @@ def download(id='', f_type=''):
         return Response(output_val,
             mimetype="text/csv",
             headers={"Content-disposition":
-                    "attachment; filename=opinions.csv"})
+                    f"attachment; filename=opinions-{id}.csv"})
     elif f_type == 'xlsx':
         output = io.BytesIO()
         workbook = openpyxl.Workbook()
@@ -111,10 +111,10 @@ def download(id='', f_type=''):
         return Response(output_val,
             mimetype="application/xlsx",
             headers={"Content-disposition":
-                    "attachment; filename=opinions.xlsx"})
+                    "attachment; filename=opinions-{id}.xlsx"})
 
 @app.route('/charts/<id>')
-@app.route('/download/')
+@app.route('/charts/')
 def charts(id=''):
     if id == '':
         return redirect(url_for('product_list'))
@@ -135,9 +135,11 @@ def charts(id=''):
             scores[str(score)] += 1
         print(recommendations, scores)
 
-        return render_template('charts.html', recommendations=recommendations, scores=scores)
+        return render_template('charts.html', recommendations=recommendations, scores=scores, id=id)
 
-
+@app.route('/about/')
+def about():
+    return render_template('about.html')
 
 
 if __name__ == '__main__':

@@ -1,5 +1,55 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-    <h1>CENEO SCRAPER</h1>
+    <div class="desc">
+        <div class="small_section_wrapper desc_item">
+            <h1 class="title">CEL APLIKACJI</h1>
+            <h2>Celem tej aplikacji jest pobieranie opinii o wpisanym produkcie z serwisu <a href="https://www.ceneo.pl" class="highlighted">ceneo.pl</a> i wyświetlanie ich</h2>
+        </div>
+        <div class="small_section_wrapper desc_item">
+            <h1 class="title">ZASTOSOWANE PODEJŚCIE</h1>
+            <h2>W tym projekcie zostało zastosowane podejście <span class="highlighted">obiektowe</span></h2>
+        </div>
+    </div>
+    <div class="small_section_wrapper desc_item">
+        <h1 class="title">OPIS DZIAŁANIA APLIKACJI</h1>
+        <h2>Aby poprac opinie o produkcie nalezy przejsc do zakładki <span class="highlighted">EXTRACT</span> gdzie po wpisaniu prawidłowego <span class="highlighted">kodu produktu</span> jest się przeniesionym na <span class="highlighted">stronę produktu</span> gdzie wyświetlane są <span class="highlighted">opinie</span> i przycisk do wyświetlenia <span class="highlighted">wykresów</span> przedstawiających informacje takie jak: <span class="highlighted">udział poszczególnych rekomendacji rekomendacji</span> jak i <span class="highlighted">liczba opinii z poszczegolnymi liczbami gwiazdek</span>. Aplikacja pozwala również na wyświetlenie listy już pobranych produktów jak i pobranie opinii z rozszerzeniem <span class="highlighted">JSON</span>, <span class="highlighted">CSV</span>, <span class="highlighted">XLSX</span>.</h2>
+    </div>
+    <div class="small_section_wrapper desc_item">
+        <h1 class="title">ZASTOSOWANE BIBLIOTEKI</h1>
+        <div class="images">
+            <div class="images_row" target="_blank">
+                <a href="https://pypi.org/project/Flask/" class="libraries_item">
+                    <img src="{{url_for('static', filename='images/flask-darkmode.png')}}" alt="flask"/>
+                    <h1>FLASK</h1>
+                </a>
+                
+                <a href="https://pypi.org/project/requests/" class="libraries_item">
+                    <img src="{{url_for('static', filename='images/requests-darkmode.png')}}" alt="requests"/>
+                    <h1>REQUESTS</h1>
+                </a>
+                <a href="https://pypi.org/project/beautifulsoup4/" class="libraries_item">
+                    <img src="{{url_for('static', filename='images/bs4-darkmode.png')}}" alt="bs4">
+                    <h1>BEAUTIFULSOUP</h1>
+                </a>   
+            </div>
+            <div class="images_row">
+                <a href="https://datatables.net" class="libraries_item">
+                    <img src="{{url_for('static', filename='images/datatables.png')}}" alt="openpyxl">
+                    <h1>DATATABLES</h1>
+                </a>
+                <a href="https://pypi.org/project/jsonpickle/" class="libraries_item">
+                    <img src="{{url_for('static', filename='images/jsonpickle-darkmode.png')}}" alt="jsonpickle">
+                    <h1>JSONPICKLE</h1>
+                </a>
+                <a href="https://getbootstrap.com" class="libraries_item">
+                    <img src="{{url_for('static', filename='images/bootstrap.png')}}" alt="">
+                    <h1>BOOTSTRAP</h1>
+                </a>
+                
+                
+            </div>
+    </div>
+
+
 {% endblock %}
