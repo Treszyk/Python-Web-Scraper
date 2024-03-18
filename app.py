@@ -31,21 +31,30 @@ def extract(id='', error=''):
         try:
             scraped_data = scraper.scrape_opinions(id)
         except Exception as error:
+            error = str(error)
             print(error)
-            return redirect(url_for('extract', error='Prosze wpisac poprawny kod'))
+            if error == 'No reviews':
+                return redirect(url_for('extract', error='Ten produkt nie ma zadnych opinii do pobrania'))
+            elif error == 'No such page':
+                return redirect(url_for('extract', error='Prosze wpisac poprawny kod produktu'))
+            else:
+                return redirect(url_for('extract', error='Wystąpił problem przy pobieraniu opinii'))
         
         opinions_html = scraped_data[0]
         product_info = scraped_data[1]
         opinions = []
+        opinion_ids = []
 
         new_product = Product(id, product_info['name'], product_info['img'], product_info['num_reviews'])
 
         #print(opinions_html)
         for opinion in opinions_html:
             extracted_details = scraper.extract_details(opinion)
-            opinion = Opinion(extracted_details)
-            opinions.append(opinion)
-        
+            if extracted_details['id'] not in opinion_ids:
+                opinion = Opinion(extracted_details)
+                opinion_ids.append(opinion.id)
+                opinions.append(opinion)
+            
         new_product.update_opinions(opinions)
         
         products[id] = new_product

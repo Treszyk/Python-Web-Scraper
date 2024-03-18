@@ -11,7 +11,7 @@ class Scraper:
         reviews = []
         product_info = {}
         re = requests.get(f'https://www.ceneo.pl/{id}/opinie-{1}')
-        soup = BeautifulSoup(re.text, 'html.parser')
+        soup = BeautifulSoup(re.text, features='html.parser')
         
         if soup.find('div', class_='error-page') or soup.find('h1', {"title" : "Błąd 500"}, class_='title'):
             raise Exception("No such page")
@@ -20,10 +20,14 @@ class Scraper:
             reviews.append(review)
 
         reviews_li = soup.find('li', class_ = 'page-tab reviews')
+        if reviews_li is None:
+            raise Exception('No reviews')
         reviews_span = reviews_li.find('span')
 
+   
+        
         number_of_reviews = int(reviews_span.text.replace('Opinie i Recenzje (', '').replace(')', ''))
-        #number_of_reviews = min(number_of_reviews, 100)
+        number_of_reviews = min(number_of_reviews, 500)
 
         product_info['name'] = soup.find('h1', class_ = 'product-top__product-info__name js_product-h1-link js_product-force-scroll js_searchInGoogleTooltip default-cursor').text
         product_info['img'] = soup.find('img', class_='js_gallery-media gallery-carousel__media')['src']
@@ -32,7 +36,7 @@ class Scraper:
         for i in range(2, math.ceil(number_of_reviews/10)+1):
             print(f'page [{i}]')
             re = requests.get(f'https://www.ceneo.pl/{id}/opinie-{i}')
-            soup = BeautifulSoup(re.text, 'html')
+            soup = BeautifulSoup(re.text, features='html.parser')
             for review in soup.find_all('div', class_='user-post user-post__card js_product-review'):
                 reviews.append(review)
 
